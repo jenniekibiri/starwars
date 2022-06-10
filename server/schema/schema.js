@@ -1,4 +1,4 @@
-import graphql from "graphql";
+import graphql, { GraphQLInt } from "graphql";
 import {
   GraphQLObjectType,
   GraphQLList,
@@ -27,7 +27,20 @@ const PeopleType = new GraphQLObjectType({
     },
     homeworld:{
       type: GraphQLString,
+    },
+   
+    url: {
+      type:GraphQLString
+    },
+    page: {
+      type:GraphQLString
+    },
+    count:{
+      type : GraphQLInt
+
     }
+
+  
   }),
 });
 const RootQuery = new GraphQLObjectType({
@@ -45,8 +58,13 @@ const RootQuery = new GraphQLObjectType({
     },
     people: {
       type: new GraphQLList(PeopleType),
-      async resolve() {
-        const res = await fetch(url);
+      args: {
+        page: { type: GraphQLInt },
+      },
+    
+      async resolve(parent,args) {
+        console.log(args);
+        const res = await fetch(`${url}?page= ${args.page?args.page:1}`);
         const data = await res.json();
         console.log(data);
         return data.results;
