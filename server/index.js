@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import {graphqlHTTP} from "express-graphql";
 import dotenv from "dotenv";
-import schema from "./schema/schema.js";
+import schema from "./schema/people.js";
 dotenv.config();
 const app = express();
 app.use(cors());

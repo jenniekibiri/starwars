@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// propTYpes
 
+import "./css/people.css";
 export const Pagination = ({ handlePageChanged }: any) => {
   const [clickedPage, setclickedPage] = useState(1);
   const count = 82;
@@ -10,7 +10,7 @@ export const Pagination = ({ handlePageChanged }: any) => {
     pageItems.push(
       <li
         className={
-          //selected page is highlighted
+
           clickedPage === page ? "page-item active" : "page-item"
         }
       >
@@ -30,32 +30,25 @@ export const Pagination = ({ handlePageChanged }: any) => {
   }
 
   return (
-    <div className="section-pagination">
-      <ul className="pagination">
-        <li className="page-item previous">
-          <a href="/" className="page-link">
-            <i className="previous"></i>
-          </a>
-        </li>
-        {pageItems}
+    <ul className="pagination">
+      <li className="page-item ">
+        <a href="#/" className="page-link">
+          &lt;
+        </a>
+      </li>
+      {pageItems}
 
-        <li
-          className={
-            //disable next button if last page
-
-            clickedPage === Math.round(count) / 9
-              ? "page-item disabled next"
-              : "page-item next"
-          }
-        >
-          <a href="/" className="page-link">
-            <i className="next"></i>
-          </a>
-        </li>
-      </ul>
-      <div className="fs-6 fw-normal  text-gray-700  ">
-        Showing 1 to 10 of {count} characters
-      </div>
-    </div>
+      <li
+        className={
+          clickedPage === Math.round(count) / 9
+            ? "page-item disabled "
+            : "page-item "
+        }
+      >
+        <a href="#/" className="page-link">
+          &gt;
+        </a>
+      </li>
+    </ul>
   );
 };

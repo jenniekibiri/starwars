@@ -4,7 +4,6 @@ import {
   GraphQLList,
   GraphQLSchema,
   GraphQLString,
-
 } from "graphql";
 import fetch from "node-fetch";
 const url = "https://swapi.dev/api/people/";
@@ -12,7 +11,6 @@ const PeopleType = new GraphQLObjectType({
   name: "People",
   description: "This  represents people",
   fields: () => ({
-   
     name: {
       type: GraphQLString,
     },
@@ -22,25 +20,34 @@ const PeopleType = new GraphQLObjectType({
     mass: {
       type: GraphQLString,
     },
-    gender:{
+    gender: {
       type: GraphQLString,
     },
-    homeworld:{
+    homeworld: {
       type: GraphQLString,
     },
-   
+
     url: {
-      type:GraphQLString
+      type: GraphQLString,
     },
     page: {
-      type:GraphQLString
+      type: GraphQLString,
     },
-    count:{
-      type : GraphQLInt
-
-    }
-
-  
+    count: {
+      type: GraphQLInt,
+    },
+    hair_color: {
+      type: GraphQLString,
+    },
+    skin_color: {
+      type: GraphQLString,
+    },
+    eye_color: {
+      type: GraphQLString,
+    },
+    birth_year: {
+      type: GraphQLString,
+    },
   }),
 });
 const RootQuery = new GraphQLObjectType({
@@ -49,8 +56,7 @@ const RootQuery = new GraphQLObjectType({
     person: {
       type: PeopleType,
       args: { name: { type: GraphQLString } },
-     async resolve(parent, args) {
-        console.log(args);
+      async resolve(parent, args) {
         const res = await fetch(`${url}?search=${args.name}`);
         const data = await res.json();
         return data.results[0];
@@ -61,12 +67,12 @@ const RootQuery = new GraphQLObjectType({
       args: {
         page: { type: GraphQLInt },
       },
-    
-      async resolve(parent,args) {
-        console.log(args);
-        const res = await fetch(`${url}?page= ${args.page?args.page:1}`);
+
+      async resolve(parent, args) {
+      
+        const res = await fetch(`${url}?page= ${args.page ? args.page : 1}`);
         const data = await res.json();
-        console.log(data);
+      
         return data.results;
       },
     },
